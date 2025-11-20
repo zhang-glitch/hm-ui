@@ -7,7 +7,8 @@ defineOptions({
 })
 const props = withDefaults(defineProps<CollapseProps>(), {
   modelValue: () => [],
-  accordion: false
+  accordion: false,
+  expandIconPosition: 'right'
 })
 const emits = defineEmits<CollapseEmits>()
 const activeNames = ref<NameType[]>(props.modelValue)
@@ -37,12 +38,13 @@ watch(
 
 provide(collapseContextKey, {
   activeNames,
-  handleCollapseItemClick
+  handleCollapseItemClick,
+  expandIconPosition: props.expandIconPosition
 })
 </script>
 
 <template>
-  <div class="hm-collapse">
+  <div :class="`hm-collapse hm-collapse-icon-position-${expandIconPosition}`">
     <slot></slot>
   </div>
 </template>

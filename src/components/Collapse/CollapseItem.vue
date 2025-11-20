@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import { collapseContextKey, CollapseItemProps } from './types'
+import HmIcon from '../Icon/Icon.vue'
+
 defineOptions({
   name: 'HmCollapseItem'
 })
 const props = withDefaults(defineProps<CollapseItemProps>(), {
-  disabled: false
+  disabled: false,
+  icon: 'angle-right'
 })
 
 const collapseContext = inject(collapseContextKey)
@@ -68,7 +71,19 @@ const transitionEvents: Record<string, (el: HTMLElement) => void> = {
       :id="`item-header-${name}`"
       @click="handleCollapseItemClick"
     >
-      <slot name="title">{{ title }}</slot>
+      <hm-icon
+        v-if="collapseContext.expandIconPosition === 'left'"
+        class="header-angle"
+        icon="angle-right"
+      ></hm-icon>
+      <slot name="title"
+        ><span>{{ title }}</span>
+      </slot>
+      <hm-icon
+        v-if="collapseContext.expandIconPosition === 'right'"
+        class="header-angle"
+        icon="angle-right"
+      ></hm-icon>
     </div>
     <Transition name="slide" v-on="transitionEvents">
       <!-- 为了解决初始化padding，动画卡顿问题 -->

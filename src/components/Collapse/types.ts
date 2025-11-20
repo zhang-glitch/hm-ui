@@ -2,9 +2,12 @@ import { InjectionKey, Ref } from "vue"
 
 export type NameType = string | number
 
+type ExpandIconPosition = 'left' | 'right'
+
 export interface CollapseProps {
   modelValue?: NameType[]
   accordion?: boolean
+  expandIconPosition?: ExpandIconPosition
 }
 
 export interface CollapseEmits {
@@ -14,24 +17,16 @@ export interface CollapseEmits {
 
 
 export interface CollapseItemProps {
-  /**
-   * @description 折叠面板的标题
-   */
   title?: string
-  /**
-   * @description 唯一标志符
-   */
   name: NameType
-  /**
-   * @description 是否禁用
-   * @default false
-   */
-  disabled?: boolean
+  disabled?: boolean;
+  icon?: string;
 }
 
 export interface CollapseContext {
   activeNames: Ref<NameType[]>;
   handleCollapseItemClick: (name: NameType) => void;
+  expandIconPosition: ExpandIconPosition
 }
 
 export const collapseContextKey: InjectionKey<CollapseContext> = Symbol('collapseContextKey')

@@ -12,6 +12,14 @@
   border-top: 1px solid var(--hm-collapse-border-color);
   border-bottom: 1px solid var(--hm-collapse-border-color);
 }
+
+.hm-collapse-icon-position-left {
+  .hm-collapse-item__header {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+}
+
 .hm-collapse-item__header {
   display: flex;
   align-items: center;

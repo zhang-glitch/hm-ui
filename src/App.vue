@@ -9,7 +9,8 @@ const a = ref(['1', '2'])
 </script>
 
 <template>
-  <HmButton type="danger" size="large"> 按钮 </HmButton>
+  <HmButton type="danger" loading icon="fa-regular fa-pen-to-square"> </HmButton>
+  <HmButton type="danger" size="large" icon="arrow-down"> 按钮 </HmButton>
   <HmButton plain>Plain 按钮</HmButton>
   <HmButton round>Round 按钮</HmButton>
   <HmButton circle>按钮</HmButton>
@@ -28,7 +29,7 @@ const a = ref(['1', '2'])
   <HmButton size="small">Small 按钮</HmButton>
   <a href="">222</a>
 
-  <HmCollapse v-model="a" accordion>
+  <HmCollapse v-model="a" accordion expand-icon-position="left">
     <HmCollapseItem title="title 1" name="1">content 1</HmCollapseItem>
     <HmCollapseItem title="title 2" name="2">content 2</HmCollapseItem>
     <HmCollapseItem title="title 3" name="3" disabled>content 3</HmCollapseItem>
@@ -37,6 +38,7 @@ const a = ref(['1', '2'])
   <HmIcon type="primary" icon="arrow-down"></HmIcon>
   <HmIcon type="primary" color="red" icon="arrow-down"></HmIcon>
   <HmIcon type="info" icon="fa-solid fa-apple-whole"></HmIcon>
+  <HmIcon type="info" icon=" fa-angle-down"></HmIcon>
 </template>
 
 <style scoped></style>
