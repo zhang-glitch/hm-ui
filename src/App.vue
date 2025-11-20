@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import HmButton from './components/Button/Button.vue'
-import Collapse from './components/Collapse/Collapse.vue'
-import CollapseItem from './components/Collapse/CollapseItem.vue'
+import HmCollapse from './components/Collapse/Collapse.vue'
+import HmCollapseItem from './components/Collapse/CollapseItem.vue'
+import HmIcon from './components/Icon/Icon.vue'
 
 const a = ref(['1', '2'])
 </script>
@@ -27,11 +28,15 @@ const a = ref(['1', '2'])
   <HmButton size="small">Small 按钮</HmButton>
   <a href="">222</a>
 
-  <Collapse v-model="a" accordion>
-    <CollapseItem title="title 1" name="1">content 1</CollapseItem>
-    <CollapseItem title="title 2" name="2">content 2</CollapseItem>
-    <CollapseItem title="title 3" name="3" disabled>content 3</CollapseItem>
-  </Collapse>
+  <HmCollapse v-model="a" accordion>
+    <HmCollapseItem title="title 1" name="1">content 1</HmCollapseItem>
+    <HmCollapseItem title="title 2" name="2">content 2</HmCollapseItem>
+    <HmCollapseItem title="title 3" name="3" disabled>content 3</HmCollapseItem>
+  </HmCollapse>
+
+  <HmIcon type="primary" icon="arrow-down"></HmIcon>
+  <HmIcon type="primary" color="red" icon="arrow-down"></HmIcon>
+  <HmIcon type="info" icon="fa-solid fa-apple-whole"></HmIcon>
 </template>
 
 <style scoped></style>
