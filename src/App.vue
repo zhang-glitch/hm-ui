@@ -4,8 +4,12 @@ import HmButton from './components/Button/Button.vue'
 import HmCollapse from './components/Collapse/Collapse.vue'
 import HmCollapseItem from './components/Collapse/CollapseItem.vue'
 import HmIcon from './components/Icon/Icon.vue'
+import HmAlert from './components/Alert/Alert.vue'
 
 const a = ref(['1', '2'])
+const hancleClose = () => {
+  console.log('close')
+}
 </script>
 
 <template>
@@ -39,6 +43,18 @@ const a = ref(['1', '2'])
   <HmIcon type="primary" color="red" icon="arrow-down"></HmIcon>
   <HmIcon type="info" icon="fa-solid fa-apple-whole"></HmIcon>
   <HmIcon type="info" icon=" fa-angle-down"></HmIcon>
+
+  <HmAlert title="测试" description="测试描述" effect="dark" closable></HmAlert>
+  <HmAlert title="测试" description="测试描述" type="danger"></HmAlert>
+  <HmAlert title="测试" description="测试描述" type="success"></HmAlert>
+  <HmAlert title="测试" description="测试描述" type="warning"></HmAlert>
+  <HmAlert title="测试" description="测试描述" type="info"></HmAlert>
+  <HmAlert center closable @close="hancleClose">
+    <template #title>
+      <span>这是一个title</span>
+    </template>
+    <div>描述</div>
+  </HmAlert>
 </template>
 
 <style scoped></style>

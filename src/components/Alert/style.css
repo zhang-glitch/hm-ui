@@ -1,0 +1,100 @@
+.hm-alert {
+  --hm-alert-padding: 8px 16px;
+  --hm-alert-border-radius-base: var(--hm-border-radius-base);
+  --hm-alert-title-font-size: 14px;
+  --hm-alert-title-with-description-font-size: 16px;
+  --hm-alert-description-font-size: 14px;
+  --hm-alert-close-font-size: 16px;
+  --hm-alert-close-customed-font-size: 14px;
+  --hm-alert-icon-size: 16px;
+  --hm-alert-icon-large-size: 28px;
+}
+.hm-alert {
+  width: 100%;
+  padding: var(--hm-alert-padding);
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: var(--hm-alert-border-radius-base);
+  position: relative;
+  background-color: var(--hm-alert-bg-color);
+  overflow: hidden;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  transition: opacity var(--hm-transition-duration);
+
+  &.is-light {
+    color: var(--hm-alert-text-color);
+  }
+  &.is-dark {
+    color: var(--hm-color-white);
+  }
+
+  &.is-center {
+    justify-content: center;
+  }
+
+  .hm-alert__icon {
+    font-size: var(--hm-alert-icon-size);
+    width: var(--hm-alert-icon-size);
+    margin-right: 12px;
+  }
+  .hm-alert__content {
+    overflow-wrap: anywhere;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+    .hm-alert__title {
+      line-height: 24px;
+    }
+
+    .hm-alert__description {
+      margin: 0;
+    }
+
+    .hm-alert__close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      cursor: pointer;
+    }
+  }
+}
+
+.hm-icon {
+  --color: inherit;
+  height: 1em;
+  width: 1em;
+  line-height: 1em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: rhmative;
+  fill: currentColor;
+  color: var(--color);
+  font-size: inherit;
+}
+
+/* 循环也是有css作用域的 */
+@each $val in primary, info, success, warning, danger {
+  .is-light.hm-alert--$(val) {
+    --hm-alert-bg-color: var(--hm-color-$(val)-light-9);
+    --hm-alert-border-color: var(--hm-color-$(val)-light-8);
+    --hm-alert-text-color: var(--hm-color-$(val));
+    .hm-alert__close {
+      --hm-icon-color: var(--hm-color-$(val));
+    }
+  }
+  .is-dark.hm-alert--$(val) {
+    --hm-alert-bg-color: var(--hm-color-$(val));
+    --hm-alert-border-color: var(--hm-color-$(val));
+    .hm-alert__close {
+      --hm-icon-color: var(--hm-color-$(val));
+    }
+  }
+}
+.alert-fade-up-enter-from,
+.alert-fade-up-leave-to {
+  opacity: 0;
+}
