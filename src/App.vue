@@ -1,22 +1,52 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import HmButton from './components/Button/Button.vue'
 import HmCollapse from './components/Collapse/Collapse.vue'
 import HmCollapseItem from './components/Collapse/CollapseItem.vue'
 import HmIcon from './components/Icon/Icon.vue'
 import HmAlert from './components/Alert/Alert.vue'
+import HmToolTip from './components/ToolTip/ToolTip.vue'
 
 const a = ref(['1', '2'])
 const hancleClose = () => {
   console.log('close')
 }
+
+const trigger = ref<any>('hover')
+
+setTimeout(() => {
+  trigger.value = 'click'
+}, 2000)
+
+const HmToolTipRef = ref<any>()
+const shoTip = () => {
+  HmToolTipRef.value?.show()
+}
+const hideTip = () => {
+  HmToolTipRef.value?.hide()
+}
 </script>
 
 <template>
+  <!--  :open-delay="1000" :close-delay="1000" -->
+  <HmToolTip content="显示内容">
+    <HmIcon type="primary" icon="arrow-down"></HmIcon>0-000000000000000000000000
+  </HmToolTip>
+  <HmToolTip content="显示内容" effect="light">
+    <HmIcon type="primary" icon="arrow-down"></HmIcon>0-000000000000000000000000
+  </HmToolTip>
+  <!-- <HmToolTip
+    content="显示内容"
+    :trigger="trigger"
+    is-manual
+    ref="HmToolTipRef"
+    :popper-options="{ placement: 'bottom' }"
+  >
+    <HmIcon type="primary" icon="arrow-down"></HmIcon>
+  </HmToolTip> -->
   <HmButton type="danger" loading icon="fa-regular fa-pen-to-square"> </HmButton>
-  <HmButton type="danger" size="large" icon="arrow-down"> 按钮 </HmButton>
-  <HmButton plain>Plain 按钮</HmButton>
-  <HmButton round>Round 按钮</HmButton>
+  <HmButton plain @click="shoTip">Plain 按钮</HmButton>
+  <HmButton round @click="hideTip">Round 按钮</HmButton>
   <HmButton circle>按钮</HmButton>
   <HmButton disabled>Disabled 按钮</HmButton>
   <HmButton type="primary">Primary 按钮</HmButton>
