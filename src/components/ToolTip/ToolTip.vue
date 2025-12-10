@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch, onUnmounted } from 'vue'
+import { computed, ref, watch, onUnmounted } from 'vue'
 import { ToolTipEmits, TooltipInstance, ToolTipProps } from './types'
 import { createPopper, Instance } from '@popperjs/core'
 import { debounce } from 'lodash-es'
+import useOutsideClick from '../../hooks/useOutsideClick'
 
 defineOptions({
   name: 'HmToolTip'
@@ -17,6 +18,7 @@ const props = withDefaults(defineProps<ToolTipProps>(), {
 })
 const emits = defineEmits<ToolTipEmits>()
 
+const tooltipRef = ref<HTMLElement>(null)
 const triggerRef = ref<HTMLElement>(null)
 const contentRef = ref<HTMLElement>(null)
 let popperInstance: Instance = null
@@ -74,10 +76,18 @@ const handleClick = (event: MouseEvent) => {
   event.stopPropagation()
 }
 
+let closeTimer = null
 const handleToolTipLeave = () => {
   if (props.isManual) return
   if (props.trigger === 'click') return
-  closeFinal()
+  // 设置短暂延时后再关闭
+  closeTimer = setTimeout(() => {
+    closeFinal()
+  }, 150) // 150ms 延时
+}
+const handleMouseEnterContent = () => {
+  // 当鼠标进入内容区域时清除关闭定时器
+  closeTimer && clearTimeout(closeTimer)
 }
 const handleToolTipClick = () => {
   if (props.isManual) return
@@ -118,12 +128,9 @@ watch(
 
 onUnmounted(() => {
   popperInstance?.destroy()
-  document.removeEventListener('click', handleToolTipClick)
 })
 
-onMounted(() => {
-  document.addEventListener('click', handleToolTipClick)
-})
+useOutsideClick(tooltipRef, handleToolTipClick)
 
 defineExpose<TooltipInstance>({
   show: openFinal,
@@ -132,7 +139,7 @@ defineExpose<TooltipInstance>({
 </script>
 
 <template>
-  <div class="hm-tooltip" @mouseleave="handleToolTipLeave">
+  <div class="hm-tooltip" @mouseleave="handleToolTipLeave" ref="tooltipRef">
     <div class="hm-tooltip__trigger" v-on="events" ref="triggerRef">
       <slot></slot>
     </div>
@@ -141,6 +148,7 @@ defineExpose<TooltipInstance>({
         :class="{ 'hm-tooltip__popper': true, [`is-${effect}`]: effect }"
         v-if="(content || $slots.content) && visible"
         ref="contentRef"
+        @mouseenter="handleMouseEnterContent"
       >
         <slot name="content">{{ content }}</slot>
         <div id="arrow" data-popper-arrow></div>

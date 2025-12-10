@@ -2,6 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
+    "jsx": "preserve",
     "noEmit": false // 确保没有禁用输出
   },
   "include": ["src/**/*.ts", "src/**/*.vue"]

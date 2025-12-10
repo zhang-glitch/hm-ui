@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { h, onMounted, ref } from 'vue'
 import HmButton from './components/Button/Button.vue'
 import HmCollapse from './components/Collapse/Collapse.vue'
 import HmCollapseItem from './components/Collapse/CollapseItem.vue'
 import HmIcon from './components/Icon/Icon.vue'
 import HmAlert from './components/Alert/Alert.vue'
 import HmToolTip from './components/ToolTip/ToolTip.vue'
+// import HmDropdown from './components/Dropdown/Dropdown.vue'
+import HmDropdown from './components/Dropdown/Dropdown'
+import { MenuOption } from './components/Dropdown/types'
 
 const a = ref(['1', '2'])
 const hancleClose = () => {
@@ -25,11 +28,44 @@ const shoTip = () => {
 const hideTip = () => {
   HmToolTipRef.value?.hide()
 }
+
+const menuOptions: MenuOption[] = [
+  {
+    label: h('div', 'vnode测试'),
+    key: 1,
+    disabled: false,
+    divided: false
+  },
+  {
+    label: 'label2',
+    key: 2,
+    disabled: true,
+    divided: true
+  },
+  {
+    label: 'label3',
+    key: 3,
+    disabled: false,
+    divided: false
+  },
+  {
+    label: 'label4',
+    key: 4,
+    disabled: false,
+    divided: false
+  }
+]
 </script>
 
 <template>
+  <HmDropdown :menu-options="menuOptions" trigger="hover" @visible-change="console.log">
+    <div>移入展示</div>
+  </HmDropdown>
+  <HmDropdown :menu-options="menuOptions" trigger="click" @visible-change="console.log">
+    <div>点击展示</div>
+  </HmDropdown>
   <!--  :open-delay="1000" :close-delay="1000" -->
-  <HmToolTip content="显示内容">
+  <HmToolTip content="显示内容" trigger="click">
     <HmIcon type="primary" icon="arrow-down"></HmIcon>0-000000000000000000000000
   </HmToolTip>
   <HmToolTip content="显示内容" effect="light">
