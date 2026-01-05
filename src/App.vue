@@ -9,6 +9,8 @@ import HmToolTip from './components/ToolTip/ToolTip.vue'
 // import HmDropdown from './components/Dropdown/Dropdown.vue'
 import HmDropdown from './components/Dropdown/Dropdown'
 import { MenuOption } from './components/Dropdown/types'
+// import HmMessage from './components//Message/Message.vue'
+import HmMessage from './components//Message'
 
 const a = ref(['1', '2'])
 const hancleClose = () => {
@@ -55,9 +57,26 @@ const menuOptions: MenuOption[] = [
     divided: false
   }
 ]
+
+const handleMessage = () => {
+  const message = HmMessage({ message: '测试消息', type: 'danger', showClose: true })
+  // setTimeout(() => {
+  //   message.close()
+  // }, 5000)
+}
 </script>
 
 <template>
+  <!-- <HmMessage
+    message="Oops, this is a message that does not automatically close."
+    show-close
+    type="success"
+  ></HmMessage> -->
+  <!-- <HmMessage
+    message="Oops, this is a message that does not automatically close."
+    show-close
+    type="danger"
+  ></HmMessage> -->
   <HmDropdown :menu-options="menuOptions" trigger="hover" @visible-change="console.log">
     <div>移入展示</div>
   </HmDropdown>
@@ -83,7 +102,7 @@ const menuOptions: MenuOption[] = [
   <HmButton type="danger" loading icon="fa-regular fa-pen-to-square"> </HmButton>
   <HmButton plain @click="shoTip">Plain 按钮</HmButton>
   <HmButton round @click="hideTip">Round 按钮</HmButton>
-  <HmButton circle>按钮</HmButton>
+  <HmButton circle @click="handleMessage">按钮, message</HmButton>
   <HmButton disabled>Disabled 按钮</HmButton>
   <HmButton type="primary">Primary 按钮</HmButton>
   <HmButton type="success">Success 按钮</HmButton>
